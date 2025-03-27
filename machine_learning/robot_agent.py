@@ -22,7 +22,7 @@ def initialize_warehouse(N, M, P, O, seed=2):
         if ((px, py) not in obstacles and
                 (dx, dy) not in obstacles and
                 (px, py) != (dx, dy) and
-                ((px, py)  not in drop_offs and (dx,dy) not in packages)):
+                ((px, py) not in drop_offs and (dx, dy) not in packages)):
             packages.append((px, py))
             drop_offs.append((dx, dy))
             warehouse[px][py] = 'P'
@@ -62,11 +62,11 @@ def bfs(start, goal, warehouse, obstacles):
 
         for dx, dy in directions:
             nx, ny = x + dx, y + dy
-            if 0 <= nx < N and 0 <= ny < M  and (nx, ny) not in visited:
+            if 0 <= nx < N and 0 <= ny < M and (nx, ny) not in visited:
                 if warehouse[nx][ny] != 'X':
                     queue.append(((nx, ny), path + [(x, y)]))
                 else:
-                    penalty+=1
+                    penalty += 1
     return []  # No path found
 
 
@@ -99,6 +99,12 @@ def robot_agent(N, M, P, O, seed=42):
     print("Total Cost:", total_cost)
     print("Total Reward:", total_reward)
     print("Penalty cost: ", penalty, "seed value: ", seed)
+    print(f'Obstacles: {obstacles}\nPackages: {packages}\nDrop-offs: {drop_offs}\n')
+
 
 if __name__ == '__main__':
-    robot_agent(N=6, M=6, P=3, O=5, seed=42)
+    package = random.randint(2, 6)
+    obstacle = random.randint(1, 10)
+    n = random.randint(5, 10)
+    m = random.randint(5, 10)
+    robot_agent(N=n, M=m, P=package, O=obstacle, seed=42)
